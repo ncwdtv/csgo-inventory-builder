@@ -1,10 +1,8 @@
 const PictureElement = ({ data }) => {
-    const { picture, pictureLink } = data;
+    const { picture } = data;
     return (
         <div className="picture-element">
-            <a href={pictureLink} target="_blank" rel="noopener noreferrer">
-                <img src={picture} alt="" className="skinImage" />
-            </a>
+            <img src={picture} alt="" className="skinImage" />
         </div>
     );
 };

@@ -1,7 +1,9 @@
 const Navbar = ({ activeNavItem, handleCategoryClick }) => {
     return (
+        <div className="navbar-container">
         <nav className="navbar">
-            <ul>
+
+            <ul className="topNav">
                 <li>
                     <a
                         className={activeNavItem === "pistol" ? "active" : ""}
@@ -64,6 +66,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                 </li>
             </ul>
         </nav>
+        </div>
     );
 };
 

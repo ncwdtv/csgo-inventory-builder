@@ -1,22 +1,41 @@
-import PictureElement from "./PictureElement";
-const Card = ({data}) => {
+import CardPicture from "./CardPicture";
+import { rarityColors } from "./constants";
 
-    const { skin,picture,pictureLink } = data;
-    
-    return ( 
-        <div class="card">
-            <div class="card-details">
-                <p class="text-title">{skin}</p>
-                <p class="text-body"><PictureElement
-                                    data={{
-                                        picture: picture,
-                                        pictureLink: steamMarketLink,
-                                    }}
-                                    /></p>
+const Card = ({ data, onCardClick }) => {
+    const { weapon, skin, rarity, picture, pictureLink } = data;
+
+
+    const rarityColor = rarityColors[rarity] || "#b0c3d9";
+
+    const getRarityClass = (rarity) => {
+        return rarity.toLowerCase().replace(/\s/g, "-");
+    };
+
+    return (
+        <div className="card" style={{ borderColor: rarityColor }}>
+            <div className="card-details"> 
+                <p className="text-title">{weapon === "Glove" ? weapon + "s" : weapon}</p> 
+                <p className="text-subtitle">{skin}</p>
+                <CardPicture
+                    data={{
+                        picture: picture,
+                    }}
+                />
             </div>
-            <button class="card-button">More info</button>
+            {skin && (<a
+                href={pictureLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`card-button ${getRarityClass(rarity)}`}
+                style={{
+                    textDecoration: "none",
+                }}
+                onClick={onCardClick}
+            >
+                More Info
+            </a>)}
         </div>
-     );
-}
- 
+    );
+};
+
 export default Card;

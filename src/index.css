@@ -2,7 +2,6 @@
 
 * {
     box-sizing: border-box;
-    
 }
 .body {
     font-family: "Roboto", sans-serif;
@@ -12,47 +11,151 @@
     margin: -8px;
 }
 html {
-    overflow:auto;
+    overflow: auto;
 }
 #main {
     display: flex;
     flex: 1;
-    background-color: #3a3f44;
+    background-color: #2a475e;
     padding: 1em;
+    position: relative;
 }
 #main > article {
+    position: relative;
     flex: 1;
     order: 1;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 690px;
-    width: 75%;
+    width: calc(190px * 4 + 20px * 3);
     overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Adjust the gap as needed */
+}
+@media (max-width: 800px) {
+    #main > article {
+        width: 100%; /* Cards stack on smaller screens */
+    }
+}
+/*Searcher*/
+.searcher {
+    background: #1b2838;
+    order: 3;
+    width: 25%;
+}
+.search-overlay {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 500px; /* Set the maximum height you desire */
+    overflow-y: auto;
+    background-color: #1b2838;
+    color: white;
+    z-index: 2;
+    border-top: 1px solid #1b2838;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.show-more-item {
+    padding: 10px;
+    opacity: 0;
+    cursor: pointer;
+    pointer-events: none;
+}
+.show-more-item.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
-.searcher {
-    background: #1c1e22;
-    order: 3;
-    overflow-y: scroll;
+.search-overlay.active {
+    opacity: 1; /* Make the overlay fully visible when active */
+    pointer-events: auto; /* Enable pointer events */
+    background-color: #1b2838; /* Set to the desired background color or remove entirely */
+    color: inherit; /* Use the parent element's text color */
     overflow-x: hidden;
-    min-height: 600px;
-    height: 630px;
-    width: 25%;
-    padding: 1em;
+    overflow-y: auto;
 }
-header {
-    height: 150px;
-    background: #1c1e22;
+
+.search-overlay searchResults {
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease-out;
+    /* Optional: Set a specific width for each item */
+    width: 150px;
+
+    /* make the images centered in the overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-container {
+    position: relative;
+}
+
+.searchResults {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontal centering */
+    justify-content: center; /* Vertical centering */
+    height: 200px; /* Adjust height as needed */
+    background-color: #1b2838; /* Adjust as needed */
     color: white;
 }
 
+/* NAVBAR */
+.navbar-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    height: 100%; /* Take full height of the container */
+    width: 470px;
+}
+
 .navbar {
-    width: 1000px;
+    width: 100%;
+    background-color: #000f18;
+    color: white;
+    text-align: center; /* Center the links horizontally */
+}
+
+.topNav {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Adjust as needed */
+    align-items: center; /* Vertically center items */
+    margin: 0; /* Remove the default margin */
+}
+
+ul {
+    padding: 0;
+    overflow: hidden;
+    background-color: #000f18;
+}
+
+li {
+    float: left;
 }
 
 li a {
-    float: left;
-    border-right: 1px solid #bbb;
     display: block;
     color: white;
     text-align: center;
@@ -60,18 +163,14 @@ li a {
     text-decoration: none;
 }
 
-li a:hover {
-    background-color: #ffc970;
-}
-
-.active {
-    background-color: #fca311;
-}
-
-
+/* Search Results */
 .skinImage {
-    width: 75px;
+    width: 150px;
     height: auto;
+    transition: 0.3s ease-out;
+}
+.skinImage:hover {
+    transform: scale(1.05);
 }
 .imgElement {
     width: 50px;
@@ -83,67 +182,28 @@ li a:hover {
     padding: 5px;
 }
 
+/* CARD PICTURES */
 
-/* TABLE */
-
-.styled-table {
-    table-layout: fixed;
+.card-image {
     width: 100%;
-    border-collapse: collapse;
-    border: 3px solid gray;
-    margin: 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
-    border-radius: 50%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
+    transition: 0.5s ease-out;
 }
-.styled-table thead tr {
-    background-color: #1c1e22;
-    color: #ffffff;
-    text-align: center;
-    border-radius: 25%;
-}
-thead th:nth-child(1) {
-    width: 20%;
-}
-thead th:nth-child(2) {
-    width: 20%;
-}
-thead th:nth-child(3) {
-    width: 15%;
-}
-thead th:nth-child(4) {
-    width: 30%;
+.card-image:hover {
+    transform: scale(1.05);
 }
 
-th,
-td {
-    padding: 20px;
+.large-card-image {
+    width: 85%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
+    transition: 0.5s ease-out;
 }
-
-tbody td {
-    text-align: center;
-}
-
-tbody tr:nth-child(odd) {
-    background-color: #34383d;
-    color: white;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #2c3035;
-    color: white;
-}
-
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    position: sticky;
-    top: 1;
-    z-index: 1;
-    width: 100%;
+.large-card-image:hover {
+    transform: scale(1.1);
 }
 
 .wear-container {
@@ -173,21 +233,17 @@ ul {
     position: relative;
 }
 
-.float-slider input[type="range"] { /*HOW CAN THUMB COLOR CHANGE TO GOLD*/
+.float-slider input[type="range"] {
+    /*HOW CAN THUMB COLOR CHANGE TO GOLD*/
     width: 100%;
 }
-
-
-
-
 
 .current-wear {
     display: block;
     text-align: center;
     margin-top: 5px;
-    color: white;
+    color: black;
 }
-
 
 /* INPUT */
 
@@ -247,8 +303,8 @@ ul {
 CARD
 */
 .card {
-    width: 190px;
-    height: 254px;
+    width: 230px;
+    height: 330px;
     border-radius: 20px;
     background: #f5f5f5;
     position: relative;
@@ -256,57 +312,302 @@ CARD
     border: 2px solid #c3c6ce;
     transition: 0.5s ease-out;
     overflow: visible;
-   }
-   
-   .card-details {
+}
+
+.card-details {
     color: black;
-    height: 100%;
-    gap: .5em;
     display: grid;
     place-content: center;
-   }
-   
-   .card-button {
+    text-align: center;
+    gap: 0.2em; /* Adjust this value to control the spacing */
+    grid-template-rows: auto auto; /* Automatically adjust the rows based on content */
+}
+
+.card-button {
     transform: translate(-50%, 125%);
+    text-align: center;
     width: 60%;
     border-radius: 1rem;
     border: none;
-    background-color: #008bf8;
+    background-color: #b0c3d9;
     color: #fff;
     font-size: 1rem;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     position: absolute;
     left: 50%;
     bottom: 0;
     opacity: 0;
     transition: 0.3s ease-out;
-   }
-   
-   .text-body {
+    cursor: pointer;
+}
+
+.text-body {
     color: rgb(134, 134, 134);
-   }
-   
-   /*Text*/
-   .text-title {
-    font-size: 1.5em;
+}
+
+/*Text*/
+.text-title {
+    font-size: 1.3em; /* Adjust the font size */
     font-weight: bold;
-   }
-   
-   /*Hover*/
-   .card:hover {
-    border-color: #008bf8;
-    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
-   }
-   
-   .card:hover .card-button {
+    margin-bottom: 0.2em; /* Adjust the margin */
+}
+
+.text-subtitle {
+    font-size: 0.9em; /* Adjust the font size */
+    margin-top: 0.2em; /* Adjust the margin */
+}
+/*Hover*/
+.card:hover {
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 1);
+}
+
+.card:hover .card-button {
     transform: translate(-50%, 50%);
     opacity: 1;
-   }
+}
 
-/* COLORS: 
-  Black: #000000
-  Navy: #14213D
-  Gold: #FCA311
-  Light Gray: #E5E5E5
-  White: #FFFFFF
-  */
+/* LARGE CARD */
+.large-card-overlay {
+    /* Styles for the overlay background */
+    /* ... */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: opacity 0.2s ease-in-out;
+}
+
+.large-card-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.large-card-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.large-card-content {
+    /* Styles for the card's content container */
+    width: 350px; /* Adjust the width as needed */
+    height: 500px; /* Adjust the height as needed */
+    border-radius: 20px;
+    background: #f5f5f5;
+    position: relative;
+    padding: 1.8rem;
+    border: 2px solid #c3c6ce;
+    overflow: visible;
+}
+
+.large-card-details {
+    color: black;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    gap: 0.2em;
+    grid-template-rows: auto auto;
+}
+.large-card-close {
+    transform: translate(-50%, 50%);
+    text-align: center;
+    width: 60%;
+    border-radius: 1rem;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transition: 0.3s ease-out;
+    cursor: pointer;
+}
+
+.shop-button {
+    text-align: center;
+    width: 40%;
+    border-radius: 1rem;
+    border: none;
+    background-color: #fca311;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    left: 30%;
+    top: 88%;
+    transition: 0.3s ease-out;
+    cursor: pointer;
+}
+
+.shop-button:hover {
+    background-color: hsl(30, 100%, 50%);
+}
+
+/* CHECK BOX */
+.customCheckBoxHolder {
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.customCheckBox {
+    width: fit-content;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+    padding: 2px 8px;
+    background-color: red;
+    border-radius: 0px;
+    color: white;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 300ms;
+    transition-property: color, background-color, box-shadow;
+    display: flex;
+    height: 32px;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 1px 0px inset,
+        rgba(255, 255, 255, 0.17) 0px 1px 1px 0px;
+    outline: none;
+    justify-content: center;
+    min-width: 55px;
+}
+
+.customCheckBox:hover {
+    background-color: darkred;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.23) 0px -4px 1px 0px inset,
+        rgba(255, 255, 255, 0.17) 0px -1px 1px 0px,
+        rgba(0, 0, 0, 0.17) 0px 2px 4px 1px;
+}
+
+.customCheckBox .inner {
+    font-size: 18px;
+    font-weight: 900;
+    pointer-events: none;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 300ms;
+    transition-property: transform;
+    transform: translateY(0px);
+}
+
+.customCheckBox:hover .inner {
+    transform: translateY(-2px);
+}
+
+/* Multiple Checkboxes can be chained together for a radio input */
+.customCheckBoxWrapper:first-of-type .customCheckBox {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-right: 0px;
+}
+
+.customCheckBoxWrapper:last-of-type .customCheckBox {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-left: 0px;
+}
+
+.customCheckBoxInput {
+    display: none;
+}
+
+.customCheckBoxInput:checked + .customCheckBoxWrapper .customCheckBox {
+    background-color: #2d6737;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.23) 0px -4px 1px 0px inset,
+        rgba(255, 255, 255, 0.17) 0px -1px 1px 0px,
+        rgba(0, 0, 0, 0.17) 0px 2px 4px 1px;
+}
+
+.customCheckBoxInput:checked + .customCheckBoxWrapper .customCheckBox .inner {
+    transform: translateY(-2px);
+}
+
+.customCheckBoxInput:checked + .customCheckBoxWrapper .customCheckBox:hover {
+    background-color: #34723f;
+    box-shadow: rgba(0, 0, 0, 0.26) 0px -4px 1px 0px inset,
+        rgba(255, 255, 255, 0.17) 0px -1px 1px 0px,
+        rgba(0, 0, 0, 0.15) 0px 3px 6px 2px;
+}
+
+.customCheckBoxWrapper .customCheckBox:hover .inner {
+    transform: translateY(-2px);
+}
+
+.consumer-grade {
+    background-color: var(--consumer-grade-color);
+}
+.consumer-grade:hover {
+    background-color: hsl(220, 33%, 50%);
+}
+
+.industrial-grade {
+    background-color: var(--industrial-grade-color);
+}
+.industrial-grade:hover {
+    background-color: hsl(213, 60%, 45%);
+}
+
+.mil-spec-grade {
+    background-color: var(--mil-spec-grade-color);
+}
+.mil-spec-grade:hover {
+    background-color: hsl(229, 75%, 40%);
+}
+
+.restricted {
+    background-color: var(--restricted-color);
+}
+.restricted:hover {
+    background-color: hsl(266, 60%, 40%);
+}
+
+.classified {
+    background-color: var(--classified-color);
+}
+.classified:hover {
+    background-color: hsl(285, 60%, 40%);
+}
+.covert {
+    background-color: var(--covert-color);
+}
+.covert:hover {
+    background-color: hsl(0, 70%, 40%);
+}
+
+.contraband {
+    background-color: var(--contraband-color);
+}
+.contraband:hover {
+    background-color: hsl(51, 100%, 40%);
+}
+
+.extraordinary {
+    background-color: var(--extraordinary-color);
+}
+.extraordinary:hover {
+    background-color: hsl(51, 100%, 40%);
+}
+
+:root {
+    --consumer-grade-color: #b0c3d9;
+    --industrial-grade-color: #5e98d9;
+    --mil-spec-grade-color: #4b69ff;
+    --restricted-color: #8747ff;
+    --classified-color: #d32ce6;
+    --covert-color: #eb4b4b;
+    --contraband-color: #ffd700;
+    --extraordinary-color: #ffd700;
+}

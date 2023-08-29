@@ -1,5 +1,5 @@
 const Header = () => {
-    return <h1>CS:GO Inventory Creator</h1>;
+    return <h1>Counter-Strike Inventory Creator</h1>;
 };
 
 export default Header;
