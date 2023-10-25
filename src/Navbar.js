@@ -7,7 +7,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                 <li className={activeNavItem === "pistol" ? "active-section" : ""}>
                     <a
                         className={activeNavItem === "pistol" ? "active" : ""}
-                        href="/#"
+                        href="/csgo-inventory-builder"
                         onClick={() => handleCategoryClick("pistol")}
                         data-category="pistol"
                     >
@@ -17,7 +17,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                 <li className={activeNavItem === "rifle" ? "active-section" : ""}>
                     <a
                         className={activeNavItem === "rifle" ? "active" : ""}
-                        href="/#"
+                        href="/csgo-inventory-builder"
                         onClick={() => handleCategoryClick("rifle")}
                         data-category="rifle"
                     >
@@ -27,7 +27,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                 <li className={activeNavItem === "smg" ? "active-section" : ""}>
                     <a
                         className={activeNavItem === "smg" ? "active" : ""}
-                        href="/#"
+                        href="/csgo-inventory-builder"
                         onClick={() => handleCategoryClick("smg")}
                         data-category="smg"
                     >
@@ -37,7 +37,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                 <li className={activeNavItem === "heavy" ? "active-section" : ""}v>
                     <a
                         className={activeNavItem === "heavy" ? "active" : ""}
-                        href="/#"
+                        href="/csgo-inventory-builder"
                         onClick={() => handleCategoryClick("heavy")}
                         data-category="heavy"
                     >
@@ -47,7 +47,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                 <li className={activeNavItem === "knife" ? "active-section" : ""}>
                     <a
                         className={activeNavItem === "knife" ? "active" : ""}
-                        href="/#"
+                        href="/csgo-inventory-builder"
                         onClick={() => handleCategoryClick("knife")}
                         data-category="knife"
                     >
@@ -57,7 +57,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                 <li className={activeNavItem === "gloves" ? "active-section" : ""}>
                     <a
                         className={activeNavItem === "gloves" ? "active" : ""}
-                        href="/#"
+                        href="/csgo-inventory-builder"
                         onClick={() => handleCategoryClick("gloves")}
                         data-category="gloves"
                     >
