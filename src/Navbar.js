@@ -4,7 +4,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
         <nav className="navbar">
 
             <ul className="topNav">
-                <li>
+                <li className={activeNavItem === "pistol" ? "active-section" : ""}>
                     <a
                         className={activeNavItem === "pistol" ? "active" : ""}
                         href="/#"
@@ -14,7 +14,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                         Pistols
                     </a>
                 </li>
-                <li>
+                <li className={activeNavItem === "rifle" ? "active-section" : ""}>
                     <a
                         className={activeNavItem === "rifle" ? "active" : ""}
                         href="/#"
@@ -24,7 +24,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                         Rifles
                     </a>
                 </li>
-                <li>
+                <li className={activeNavItem === "smg" ? "active-section" : ""}>
                     <a
                         className={activeNavItem === "smg" ? "active" : ""}
                         href="/#"
@@ -34,7 +34,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                         SMGs
                     </a>
                 </li>
-                <li>
+                <li className={activeNavItem === "heavy" ? "active-section" : ""}v>
                     <a
                         className={activeNavItem === "heavy" ? "active" : ""}
                         href="/#"
@@ -44,7 +44,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                         Heavy
                     </a>
                 </li>
-                <li>
+                <li className={activeNavItem === "knife" ? "active-section" : ""}>
                     <a
                         className={activeNavItem === "knife" ? "active" : ""}
                         href="/#"
@@ -54,7 +54,7 @@ const Navbar = ({ activeNavItem, handleCategoryClick }) => {
                         Knives
                     </a>
                 </li>
-                <li>
+                <li className={activeNavItem === "gloves" ? "active-section" : ""}>
                     <a
                         className={activeNavItem === "gloves" ? "active" : ""}
                         href="/#"

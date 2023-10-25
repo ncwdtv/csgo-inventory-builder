@@ -64,16 +64,11 @@ const LargeCard = ({
         onSkinWearChange(updatedData, activeNavItem); // Pass the updated data back to App
     };
     const handleStatTrakChange = (newST) => {
-        //check if stattrak is true or false
         data.stattrak = newST;
         const updatedData = { ...data, stattrak: newST };
         onStatTrakChange(updatedData, activeNavItem);
     };
 
-    const toggle = (value) => {
-        handleStatTrakChange(!checked);
-        return !value;
-    };
 
     const rarityColor = rarityColors[rarity] || "#b0c3d9";
     const getRarityClass = (rarity) => {
@@ -102,7 +97,10 @@ const LargeCard = ({
             stattrack = "StatTrak™%20";
         }
         var steamMarketLink = steamMarketLinkBase + stattrack + hashName;
-    }
+
+
+
+    
 
     const openExternalLink = (link) => {
         window.open(link, "_blank");
@@ -179,6 +177,7 @@ const LargeCard = ({
             </div>
         </div>
     );
+};
 };
 
 export default LargeCard;
