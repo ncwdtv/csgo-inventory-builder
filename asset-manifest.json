@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/csgo-inventory-builder/static/css/main.3db9c13c.css",
-    "main.js": "/csgo-inventory-builder/static/js/main.1ba42dad.js",
+    "main.js": "/csgo-inventory-builder/static/js/main.feed77e6.js",
     "static/js/787.8140ac2c.chunk.js": "/csgo-inventory-builder/static/js/787.8140ac2c.chunk.js",
     "index.html": "/csgo-inventory-builder/index.html",
     "main.3db9c13c.css.map": "/csgo-inventory-builder/static/css/main.3db9c13c.css.map",
-    "main.1ba42dad.js.map": "/csgo-inventory-builder/static/js/main.1ba42dad.js.map",
+    "main.feed77e6.js.map": "/csgo-inventory-builder/static/js/main.feed77e6.js.map",
     "787.8140ac2c.chunk.js.map": "/csgo-inventory-builder/static/js/787.8140ac2c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3db9c13c.css",
-    "static/js/main.1ba42dad.js"
+    "static/js/main.feed77e6.js"
   ]
 }
