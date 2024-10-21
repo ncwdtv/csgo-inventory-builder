@@ -471,147 +471,119 @@ function App() {
     }
 
     function gunType(weapon) {
-        const pistols = [
-            "Glock-18",
-            "USP-S",
-            "P2000",
-            "P250",
-            "Dual Berettas",
-            "Five-SeveN",
-            "Tec-9",
-            "CZ75-Auto",
-            "Desert Eagle",
-            "R8 Revolver",
-        ];
-        const rifles = [
-            "AK-47",
-            "M4A4",
-            "M4A1-S",
-            "FAMAS",
-            "Galil AR",
-            "AUG",
-            "SG 553",
-            "AWP",
-            "SSG 08",
-            "G3SG1",
-            "SCAR-20",
-        ];
-        const smgs = [
-            "MP9",
-            "MAC-10",
-            "MP7",
-            "MP5-SD",
-            "UMP-45",
-            "PP-Bizon",
-            "P90",
-        ];
-        const heavies = [
-            "Nova",
-            "XM1014",
-            "MAG-7",
-            "Sawed-Off",
-            "Negev",
-            "M249",
-        ];
-        if (pistols.includes(weapon)) {
-            return "pistol";
-        } else if (rifles.includes(weapon)) {
-            return "rifle";
-        } else if (smgs.includes(weapon)) {
-            return "smg";
-        } else if (heavies.includes(weapon)) {
-            return "heavy";
-        } else if (
-            weapon.includes("Knife") ||
-            weapon.includes("Bayonet") ||
-            weapon.includes("Karambit") ||
-            weapon.includes("Daggers")
-        ) {
-            return "knife";
-        } else if (
-            weapon.includes("Gloves") ||
-            weapon.includes("Hand Wraps") ||
-            weapon.includes("Sport Gloves")
-        ) {
-            return "gloves";
+        let weaponName = weapon.name;
+        if (typeof weaponName !== 'string') {
+            console.error('Invalid weapon type:', weaponName);
+            return null;
         }
+    
+        const pistols = ["Glock-18", "USP-S", "P2000", "P250", "Dual Berettas", "Five-SeveN", "Tec-9", "CZ75-Auto", "Desert Eagle", "R8 Revolver"];
+        const rifles = ["AK-47", "M4A4", "M4A1-S", "FAMAS", "Galil AR", "AUG", "SG 553", "AWP", "SSG 08", "G3SG1", "SCAR-20"];
+        const smgs = ["MP9", "MAC-10", "MP7", "MP5-SD", "UMP-45", "PP-Bizon", "P90"];
+        const heavies = ["Nova", "XM1014", "MAG-7", "Sawed-Off", "Negev", "M249"];
+    
+        if (pistols.includes(weaponName)) return "pistol";
+        if (rifles.includes(weaponName)) return "rifle";
+        if (smgs.includes(weaponName)) return "smg";
+        if (heavies.includes(weaponName)) return "heavy";
+    
+        if (weaponName && typeof weaponName === 'string') {
+            if (weaponName.includes("Knife") || weaponName.includes("Bayonet") || weaponName.includes("Karambit") || weaponName.includes("Daggers")) {
+                return "knife";
+            }
+            if (weaponName.includes("Gloves") || weaponName.includes("Hand Wraps") || weaponName.includes("Sport Gloves")) {
+                return "gloves";
+            }
+        }
+    
+        return null;
     }
+    
 
     function searchSkin(numSearchItems) {
-        //can improve. like when I type G i want to see glock skins first
         const searchInput = document
             .getElementById("searchInput")
             .value.toLowerCase();
         const searchResults = document.getElementById("searchResults");
-        searchResults.innerHTML = "";
-
+    
+        // Reset the result counter when a new search term is entered
+        let resultCounter = 0;
+    
         setShowMoreItem(false);
-
+    
         getSkins().then((skins) => {
-            const maxResults = numSearchItems;
-
-            let resultCounter = 0;
-            if (searchInput !== "") {
-                const matchingItems = skins.filter((item) =>
-                    item.name
-                        .toLowerCase()
-                        .replace(/[^a-z0-9]/gi, "")
-                        .includes(searchInput.replace(/[^a-z0-9]/gi, ""))
-                );
-
-                if (matchingItems.length > 0) {
-                    matchingItems.forEach((item) => {
-                        if (resultCounter >= maxResults) {
-                            setShowMoreItem(true);
-                            return;
-                        }
-                        var n = item.name;
-                        const resultItem = document.createElement("div");
-                        if (item.name.includes("Doppler")) {
-                            resultItem.textContent =
-                                n + editDoppler(item.paint_index);
+            // Filter skins based on the search input
+            const matchingItems = skins.filter((item) =>
+                item.name
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]/gi, "")
+                    .includes(searchInput.replace(/[^a-z0-9]/gi, ""))
+            );
+    
+            // Clear the search results container before displaying new results
+            if (resultCounter === 0) {
+                searchResults.innerHTML = "";
+            }
+    
+            if (matchingItems.length > 0) {
+                const newItems = matchingItems.slice(resultCounter, numSearchItems);
+    
+                // Append new items to search results
+                newItems.forEach((item) => {
+                    const resultItem = document.createElement("div");
+                    const n = item.name;
+    
+                    resultItem.textContent = item.name.includes("Doppler")
+                        ? n + editDoppler(item.paint_index)
+                        : n;
+    
+                    const skinImage = document.createElement("img");
+                    skinImage.src = item.image;
+                    skinImage.classList.add("skinImage");
+                    skinImage.alt = resultItem.textContent;
+    
+                    const figCaption = document.createElement("figcaption");
+                    figCaption.textContent = resultItem.textContent;
+    
+                    const figure = document.createElement("figure");
+                    figure.appendChild(skinImage);
+                    figure.appendChild(figCaption);
+    
+                    figure.addEventListener("click", () => {
+                        if (figure.classList.contains("selected")) {
+                            figure.classList.remove("selected");
+                            updateState(item, null);
                         } else {
-                            resultItem.textContent = n;
-                        }
-                        const skinImage = document.createElement("img");
-                        skinImage.src = item.image;
-                        skinImage.classList.add("skinImage");
-                        skinImage.alt = resultItem.textContent;
-                        const figCaption = document.createElement("figcaption");
-                        figCaption.textContent = resultItem.textContent;
-                        const figure = document.createElement("figure");
-                        figure.appendChild(skinImage);
-                        figure.appendChild(figCaption);
-
-                        figure.addEventListener("click", () => {
-                            if (figure.classList.contains("selected")) {
-                                figure.classList.remove("selected");
-                                updateState(item, null);
-                            } else {
-                                const prevSelected =
-                                    document.querySelector(".selected");
-                                if (prevSelected) {
-                                    prevSelected.classList.remove("selected");
-                                }
-                                figure.classList.add("selected");
-                                //selected
-
-                                updateState(item, gunType(item.weapon));
-                                //set stattrak to false
-                                //updateState({ ...item, stattrak: false }, gunType(item.weapon));
-                                handleCategoryClick(gunType(item.weapon));
+                            const prevSelected = document.querySelector(".selected");
+                            if (prevSelected) {
+                                prevSelected.classList.remove("selected");
                             }
-                        });
-
-                        searchResults.appendChild(figure);
-                        resultCounter++;
+                            figure.classList.add("selected");
+                            updateState(item, gunType(item.weapon));
+                            handleCategoryClick(gunType(item.weapon));
+                        }
                     });
+    
+                    searchResults.appendChild(figure);
+                    resultCounter++;
+                });
+    
+                // Show or hide the "Show More" button
+                if (resultCounter >= matchingItems.length) {
+                    setShowMoreItem(false); // Hide if all items are shown
                 } else {
-                    searchResults.textContent = "No results found";
+                    setShowMoreItem(true); // Show if more items are available
                 }
+            } else {
+                searchResults.textContent = "No results found";
+                setShowMoreItem(false); // Hide the "Show More" button
             }
         });
     }
+    
+    
+    
+
 
     const dataToStore = {};
 

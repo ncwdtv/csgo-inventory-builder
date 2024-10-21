@@ -4,11 +4,13 @@ import { rarityColors } from "./constants";
 const Card = ({ data, onCardClick }) => {
     const { weapon, skin, rarity, picture, pictureLink } = data;
 
+    
 
     const rarityColor = rarityColors[rarity] || "#b0c3d9";
 
     const getRarityClass = (rarity) => {
-        return rarity.toLowerCase().replace(/\s/g, "-");
+        //console.log(rarity);
+        return rarity.name.toLowerCase().replace(/\s/g, "-");
     };
 
     return (

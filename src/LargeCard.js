@@ -72,7 +72,7 @@ const LargeCard = ({
 
     const rarityColor = rarityColors[rarity] || "#b0c3d9";
     const getRarityClass = (rarity) => {
-        return rarity.toLowerCase().replace(/\s/g, "-");
+        return rarity.name.toLowerCase().replace(/\s/g, "-");
     };
 
     if (skin !== "") {
@@ -92,6 +92,7 @@ const LargeCard = ({
         const steamMarketLinkBase =
             "https://steamcommunity.com/market/listings/730/";
         const hashName = `${itemName}%20%7C${skinName}%20%28${fullName}%29`;
+        console.log(hashName);
         var stattrack = "";
         if (checked === true) {
             stattrack = "StatTrak™%20";

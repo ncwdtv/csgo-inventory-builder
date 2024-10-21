@@ -1,9 +1,11 @@
 import ShowMoreItem from "./ShowMoreItem";
+
 const Search = ({ searchSkin, activeShowMoreItem }) => {
-    var numSearchItems = 10;
-    var searchTerm = "";
+    let numSearchItems = 10;
+
     const handleKeyUp = (event) => {
-        searchTerm = event.target.value;
+        const searchTerm = event.target.value.toLowerCase();
+        numSearchItems = 10; // Reset to initial batch size on new search term
         searchSkin(numSearchItems);
 
         const searchOverlay = document.querySelector(".search-overlay");
@@ -15,7 +17,7 @@ const Search = ({ searchSkin, activeShowMoreItem }) => {
     };
 
     const handleTextClick = () => {
-        numSearchItems += 10;
+        numSearchItems += 10; // Increase the number of items to display
         searchSkin(numSearchItems);
     };
 
@@ -25,26 +27,21 @@ const Search = ({ searchSkin, activeShowMoreItem }) => {
                 placeholder="Search for a Skin"
                 className="input-field"
                 type="text"
-                required=""
                 onKeyUp={handleKeyUp}
                 id="searchInput"
-            ></input>
+            />
             <label htmlFor="input-field" className="input-label">
                 Search for a Skin
             </label>
             <span className="input-highlight"></span>
             <div className="search-overlay search-overlay-content">
                 <div id="searchResults"></div>
-                <ShowMoreItem
-                    onTextClick={handleTextClick}
-                    activeShowMoreItem={activeShowMoreItem}
-                />
+                {activeShowMoreItem && (
+                    <ShowMoreItem onTextClick={handleTextClick} />
+                )}
             </div>
         </div>
     );
 };
 
 export default Search;
-
-//onKeyUp={() => searchSkin()}
-//<div id="searchResults"></div>

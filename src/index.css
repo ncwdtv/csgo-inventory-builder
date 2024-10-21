@@ -19,6 +19,7 @@ html {
     background-color: #2a475e;
     padding: 1em;
     position: relative;
+    z-index: 1;
 }
 #main > article {
     position: relative;
@@ -49,7 +50,7 @@ html {
     top: 100%;
     left: 0;
     width: 100%;
-    max-height: 500px; /* Set the maximum height you desire */
+    max-height: 500px;
     overflow-y: auto;
     background-color: #1b2838;
     color: white;
@@ -59,17 +60,31 @@ html {
     pointer-events: none;
     transition: opacity 0.3s ease;
     display: flex;
-    flex-direction: row;
+    flex-direction: column; /* Change to column layout */
+    align-items: center; /* Center items horizontally */
+}
+
+#searchResults {
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    gap: 10px; /* Adjust gap as needed */
 }
+
 .show-more-item {
+    margin-top: 10px; /* Add space between last skin and "Show More" */
     padding: 10px;
-    opacity: 0;
     cursor: pointer;
-    pointer-events: none;
+    background-color: #2a475e;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
+
+.show-more-item:hover {
+    background-color: #3b6a88;
+}
+
 .show-more-item.active {
     opacity: 1;
     pointer-events: auto;
@@ -317,6 +332,7 @@ CARD
     border: 2px solid #c3c6ce;
     transition: 0.5s ease-out;
     overflow: visible;
+    z-index: 2;
 }
 
 .card-details {
@@ -387,6 +403,7 @@ CARD
     pointer-events: none;
     background-color: rgba(0, 0, 0, 0.6);
     transition: opacity 0.2s ease-in-out;
+    z-index: 3;
 }
 
 .large-card-overlay.open {
